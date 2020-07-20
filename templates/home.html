@@ -1,0 +1,111 @@
+{% extends 'index.html' %}
+{% block title %} Dashboard - JTIK E-Presence {% endblock %}
+{% block content %}
+
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center pt-5 pb-4">
+            <div class="col-lg-6 col-7 form-inline">
+              <h6 class="h3 text-white d-inline-block mb-0 mr-3">Presensi {{session['level']}} :</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if session['level'] == 'mhs' :%}
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Daftar presensi saya</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="text-center">Tanggal</th>
+                    <th scope="col" class="text-center">M1</th>
+                    <th scope="col" class="text-center">M2</th>
+                    <th scope="col" class="text-center">M3</th>
+                    <th scope="col" class="text-center">M4</th>
+                    <th scope="col" class="text-center">M5</th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for row in data: %}
+                  <tr>
+                    <td class="text-center">{{row['tgl']}}</td>
+                    <td class="text-center">{{row['j1']}}</td>
+                    <td class="text-center">{{row['j2']}}</td>
+                    <td class="text-center">{{row['j3']}}</td>
+                    <td class="text-center">{{row['j4']}}</td>
+                    <td class="text-center">{{row['j5']}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header border-0">
+              <h3 class="mb-0">Daftar presensi saya</h3>
+            </div>
+            <!-- Light table -->
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" class="text-center">Tanggal</th>
+                    <th scope="col" class="text-center">Kelas</th>
+                    <th scope="col" class="text-center">Jam Ke</th>
+                    <th scope="col" class="text-center">Matkul</th>
+                    <th scope="col" class="text-center">Mulai</th>
+                    <th scope="col" class="text-center">Selesai</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="list">
+                  {% for row in data: %}
+                  <tr>
+                    <td class="text-center">{{row['tgl']}}</td>
+                    <td class="text-center">{{row['kelas']}}</td>
+                    <td class="text-center">{{row['step']}}</td>
+                    <td class="text-center">{{row['matkul']}}</td>
+                    <td class="text-center">{{row['mulai']}}</td>
+                    <td class="text-center">{{row['selesai']}}</td>
+                    {% if row['status'] == 'running' %}
+                      <td class="text-right">
+                        <a href="/qr/{{row['id']}}" class="btn btn-info btn-sm text-white"><i class="fi fi-qrcode"></i></a>
+                        <a href="/stop/{{row['id']}}" class="btn btn-danger btn-sm"><i class="fi fi-close-a"></i></a>
+                      </td>
+                    {% else: %}
+                      <td class="text-right">
+                        <a class="btn btn-success btn-sm text-white">Finished <i class="fi fi-check"></i></a>
+                      </td>
+                    {% endif %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+
+{% endblock %}

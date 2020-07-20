@@ -1,0 +1,155 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#5e72e4">
+  <meta name="msapplication-navbutton-color" content="#5e72e4">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#5e72e4">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>{% block title %} {% endblock %}</title>
+  <link rel="icon" href="https://cdn.haloryan.com/img/brand/relu-icon.svg" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"></i>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <link rel="stylesheet" href="https://cdn.haloryan.com/css/argon.css?v=1.2.0" type="text/css">
+  <link rel="stylesheet" href="https://cdn.haloryan.com/css/owl.carousel.min.css" type="text/css">
+  <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+  <script src="https://cdn.haloryan.com/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="https://cdn.haloryan.com/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <style>
+    .inputfile {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'error': %}
+          <div class="alert alert-la alert-danger alert-dismissible show" role="alert">
+            <span class="alert-text"><strong>Error</strong> <br> {{message}}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% elif category == 'success': %}
+          <div class="alert alert-la alert-success alert-dismissible show" role="alert">
+            <span class="alert-text"><strong>Success</strong> <br> {{message}}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% else: %}
+        <div class="alert alert-la alert-primary alert-dismissible show" role="alert">
+          <span class="alert-text">Whoa whoa, this project was asocited by haloryan.com. Please contact us to get the full lisence</span>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          <h3 class="text-primary">JTIK E-Presence</h3>
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="fi fi-table-1 text-primary"></i>
+                <span class="nav-link-text">Data Presensi</span>
+              </a>
+            </li>
+            {% if session['level'] == 'mhs' :%}
+            <li class="nav-item">
+              <a class="nav-link" href="/scan">
+                <i class="fi fi-qrcode text-success"></i>
+                <span class="nav-link-text">Scan QR</span>
+              </a>
+            </li>
+            {% else: %}
+            <li class="nav-item">
+              <a class="nav-link" href="/create">
+                <i class="fi fi-slack text-success"></i>
+                <span class="nav-link-text">Start Class</span>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+          <hr class="my-3">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/keluar">
+                <i class="fi fi-power text-default"></i>
+                <span class="nav-link-text">Keluar</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="main-content" id="panel">
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav align-items-center  ml-md-auto ">
+          </ul>
+          <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+            <li class="nav-item dropdown">
+              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="media align-items-center">
+                  <div class="media-body  mr-4  d-none d-lg-block">
+                    <span class="mb-0 text-sm  font-weight-bold">{{session['nama']}}</span>
+                  </div>
+                  <!-- <span class="avatar avatar-sm rounded-circle">
+                    <img src="">
+                  </span> -->
+                </div>
+              </a>
+            </li>
+            <li class="nav-item d-xl-none ml-3">
+              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
+  </div>
+
+  <script src="https://cdn.haloryan.com/js/owl.carousel.min.js"></script>
+  <script src="https://cdn.haloryan.com/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.haloryan.com/vendor/js-cookie/js.cookie.js"></script>
+  <script src="https://cdn.haloryan.com/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="https://cdn.haloryan.com/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="https://cdn.haloryan.com/js/argon.js?v=1.2.0"></script>
+</body>
+</html>

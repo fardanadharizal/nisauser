@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% block title %} Absen - JTIK E-Presence {% endblock %}
+{% block content %}
+
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center pt-5 pb-4">
+        <div class="col-lg-12">
+          <h6 class="h2 text-white d-inline-block mb-2">Absen</h6>
+          <p class="h2 text-white"><small>
+            Klik tombol dibawah untuk membuka kamera dan absen
+          </small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+        </div>
+        <div id="process" class="d-none">
+          <div class="pt-3 py-4">
+            <div class="text-center pb-3" style="width: 100%; max-width: 500px; margin: auto;">
+              <h3>Wait a Minute</h3>
+              <p><small>
+                Kami sedang mengverifikasi QR code kamu
+              </small></p>
+            </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+        <div id="root" class="card-body text-center">
+          <form id="absensi" method="POST" enctype="multipart/form-data" action="/scan">
+            <input type="file" name="file" id="file" class="inputfile" accept="image/*" capture="camera" />
+            <label for="file" class="btn btn-primary">Scan The QR</label>
+          </form>
+          <div class="mt-4">
+            <small>
+              Klik button diatas untuk melakukan absesnsi dengan QR code dosen
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function($){
+    $(function(){
+      $("#file").on("change", function(){
+        $('#root').attr('class', 'd-none');
+        $('#process').attr('class', 'card-body');
+        $("#absensi").submit();
+      });
+    });
+  })(jQuery);
+</script>
+
+{% endblock %}

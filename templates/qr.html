@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block title %} QR Code - JTIK E-Presence {% endblock %}
+{% block content %}
+
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center pt-5 pb-4">
+        <div class="col-lg-12">
+          <h6 class="h2 text-white d-inline-block mb-2">Scan Me</h6>
+          <p class="h2 text-white"><small>
+            Scan QR-Code ini untuk absensi mahasiswa
+          </small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="card-header border-0">
+        </div>
+        <div class="card-body">
+          <div class="pt-1 pb-1 text-center">
+            <img src="/static/images/{{qrpic}}" style="width: 90%; max-width: 300px;">
+          </div>
+          <div class="text-center">
+            <a href="/qr/{{id}}" class="mt-1 btn btn-primary">Refresh</a>
+            <a href="/" class="mt-1 btn btn-secondary">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
