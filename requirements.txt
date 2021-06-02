@@ -75,7 +75,7 @@ tqdm==4.47.0
 traitlets==4.3.3
 tweepy==3.8.0
 twython==3.8.2
-urllib3==1.25.9
+urllib3==1.26.5
 virtualenv==20.0.25
 wcwidth==0.2.5
 Werkzeug==1.0.1
